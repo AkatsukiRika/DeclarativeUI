@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/demo/component_creation.dart';
+import 'package:flutter_demo/demo/conditional_render.dart';
+import 'package:flutter_demo/demo/data_propagation.dart';
+import 'package:flutter_demo/demo/event_handling.dart';
+import 'package:flutter_demo/demo/list_and_looping.dart';
+import 'package:flutter_demo/demo/parameter_drilling.dart';
+import 'package:flutter_demo/demo/side_effects.dart';
+import 'package:flutter_demo/demo/slots.dart';
+import 'package:flutter_demo/demo/states.dart';
+import 'package:flutter_demo/demo/styles.dart';
+import 'package:flutter_demo/demo/user_input_handling.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +45,56 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget? component;
+    if (selectIndex == 0) {
+      component = const ComponentCreation();
+    }
+    if (selectIndex == 1) {
+      component = const ConditionalRender(condition: false);
+    }
+    if (selectIndex == 2) {
+      component = const ParameterDrilling(data: 114514);
+    }
+    if (selectIndex == 3) {
+      component = const EventHandling();
+    }
+    if (selectIndex == 4) {
+      component = const UserInputHandling();
+    }
+    if (selectIndex == 5) {
+      component = ListAndLooping(items: [
+        Person(name: 'John', age: 30, id: '1'),
+        Person(name: 'Jane', age: 28, id: '2'),
+        Person(name: 'Bob', age: 25, id: '3'),
+      ]);
+    }
+    if (selectIndex == 6) {
+      component = const Slots(
+        header: Text('Header', style: TextStyle(fontSize: 24)),
+        content: Text('Child Content')
+      );
+    }
+    if (selectIndex == 7) {
+      component = const Styles();
+    }
+    if (selectIndex == 8) {
+      component = const States();
+    }
+    if (selectIndex == 9) {
+      component = const DataPropagation(data: 'provided data from main.dart');
+    }
+    if (selectIndex == 10) {
+      component = const SideEffects();
+    }
+
+    Widget? component2;
+    if (selectIndex == 1) {
+      component2 = const ConditionalRender(condition: true);
+    }
+    if (selectIndex == 2) {
+      component2 = const ParameterDrilling(data: 1919810);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -44,6 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             _chipsRow(),
+            component ?? const Spacer(),
+            component2 ?? const Spacer(),
           ],
         ),
       ),
